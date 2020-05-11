@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use PharIo\Manifest\Email;
 
 class loginRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class loginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,18 @@ class loginRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|',
+            'password' => 'required'
         ];
+    }
+    public function messages()
+    {
+        return
+            [
+                'email.required' => 'emall empty',
+                'email.email' => 'not is email please try again',
+                'password.required' => 'pass'
+
+            ];
     }
 }

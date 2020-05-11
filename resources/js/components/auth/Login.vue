@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div v-if="check">ban da dang nhap</div>
+    <div v-else class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">Login</div>
@@ -20,7 +21,7 @@
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Password</label>
               <div class="col-md-6">
-                <input type="text" class="form-control" v-model="user.password" />
+                <input type="password" class="form-control" v-model="user.password" />
               </div>
             </div>
 
@@ -44,16 +45,14 @@ export default {
         email: "",
         password: ""
       },
-      error: []
+      error: [],
+      check: ""
     };
   },
   beforeMount() {
-    this.loadData();
+    this.checklg();
   },
   methods: {
-    loadData() {
-      console.log("hau");
-    },
     login() {
       axios
         .post("login", {
@@ -61,12 +60,23 @@ export default {
           password: this.user.password
         })
         .then(response => {
-          console.log(response.data.ok);
-          //this.error = error.data.errors;
-
-          this.$router.push("/");
+          if (response.data == true) {
+            this.$router.push("/");
+          } else alert("login fall");
         })
-        .catch(error => {});
+        .catch(error => {
+          console.log("fall");
+        });
+    },
+    checklg() {
+      axios
+        .post("checklogin")
+        .then(response => {
+          this.check = response.data;
+        })
+        .catch(error => {
+          console.log("error");
+        });
     }
   }
 };

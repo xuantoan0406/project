@@ -27,3 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('register', 'SpaController@register');
 Route::post('login', 'SpaController@login');
+
+Route::post('user', 'SpaController@user');
+Route::post('logout', 'SpaController@logout');
+Route::post('checklogin', 'SpaController@checkLogin');

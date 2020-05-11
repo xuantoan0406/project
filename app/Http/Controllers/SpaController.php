@@ -21,19 +21,34 @@ class SpaController extends Controller
             'email' => $rq['email'],
             'password' => Hash::make($rq['password']),
         ]);
-        return response(
-            ['user' => $user]
-        );
+        return response()->json($user);
+        // return response(
+        //     ['user' => $user]
+        // );
+
     }
     public function login(Request $rq)
     {
         $credentials = $rq->only('email', 'password');
-        $kt = Auth::attempt($credentials);
-        $chek = 'ok';
-        $fal = 'fall';
-        if ($kt)
-            return response(['ok' => $chek]);
+        $stt = Auth::attempt($credentials);
+        return response()->json($stt);
+    }
+    public function user()
+    {
+        $check = Auth::check();
+        if ($check)
+            $user = Auth::user();
         else
-            return response(['ok' => $fal]);
+            $user = '';
+        return response()->json($user);
+    }
+    public function logout()
+    {
+        Auth::logout();
+    }
+    public function checkLogin()
+    {
+        $check = Auth::check();
+        return response()->json($check);
     }
 }

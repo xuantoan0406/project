@@ -20,12 +20,6 @@
     <div id="app">
         <app></app>
     </div>
-    <div>
-        @if(Auth::check())
-        <div>dang nhap thanh cong</div>
-        <a href="{{Auth::logout()}}">logout</a>
-        @endif
-    </div>
 </body>
 
 </html>

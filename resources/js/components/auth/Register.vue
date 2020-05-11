@@ -94,6 +94,7 @@ export default {
         .then(response => {
           //console.log(response.response.data.user);
           alert("register sucsess");
+          this.$router.push("/logins");
         })
         .catch(error => {
           if (error.response.status == 422) {
